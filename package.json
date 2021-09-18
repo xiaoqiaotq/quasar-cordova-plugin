@@ -1,0 +1,17 @@
+{
+  "name": "cordova-plugin-wms",
+  "version": "0.0.1",
+  "description": "ddddddd",
+  "author": "xiaoqiaotq@gmail.com",
+  "cordova": {
+    "id": "cordova-plugin-wms",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "ISC"
+}
