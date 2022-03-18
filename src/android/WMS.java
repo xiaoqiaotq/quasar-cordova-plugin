@@ -48,7 +48,7 @@ public class WMS extends CordovaPlugin {
         // print scan results.
         scanResult = " length：" + barcodeLen + "\nbarcode：" + scanResult  + "\nbarcodeStr:" + barcodeStr;
 
-        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, scanResult);
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, barcodeStr);
         pluginResult.setKeepCallback(true);
         callbackContext.sendPluginResult(pluginResult);
       }
@@ -61,7 +61,7 @@ public class WMS extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
       this.callbackContext = callbackContext;
         if (action.equals("coolMethod")) {
-            String message = args.getString(0);
+ //           String message = args.getString(0);
 //            this.coolMethod(message, callbackContext);
           Toast.makeText(cordova.getActivity(), callbackContext.toString(), Toast.LENGTH_SHORT).show();
             return true;
@@ -80,10 +80,10 @@ public class WMS extends CordovaPlugin {
   @Override
   public void onResume(boolean multitasking) {
     super.onResume(multitasking);
-    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, callbackContext.toString()+" cordova: "+ UUID.randomUUID().toString());
-    pluginResult.setKeepCallback(true);
-    callbackContext.sendPluginResult(pluginResult);
-    Toast.makeText(cordova.getActivity(), "你好 cordova 回来了 :"+callbackContext.toString(), Toast.LENGTH_SHORT).show();
+//    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, callbackContext.toString()+" cordova: "+ UUID.randomUUID().toString());
+ //   pluginResult.setKeepCallback(true);
+ //   callbackContext.sendPluginResult(pluginResult);
+  //  Toast.makeText(cordova.getActivity(), "你好 cordova 回来了 :"+callbackContext.toString(), Toast.LENGTH_SHORT).show();
 
     // register broadcast
     IntentFilter filter = new IntentFilter();

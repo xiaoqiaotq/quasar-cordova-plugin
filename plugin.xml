@@ -8,6 +8,7 @@
   <platform name="android">
     <config-file parent="/*" target="res/xml/config.xml">
       <feature name="wms">
+        <param name="onload" value="true" />
         <param name="android-package" value="org.apache.cordova.wms.WMS"/>
       </feature>
     </config-file>
