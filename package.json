@@ -3,6 +3,10 @@
   "version": "0.0.3",
   "description": "ddddddd",
   "author": "xiaoqiaotq@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaoqiaotq/quasar-cordova-plugin.git"
+  },
   "cordova": {
     "id": "cordova-plugin-wms",
     "platforms": [
