@@ -1,7 +1,7 @@
 {
   "name": "cordova-plugin-wms",
   "version": "0.0.4",
-  "description": "ddddddd",
+  "description": "cordova-plugin-wms pda scan and uhf",
   "author": "xiaoqiaotq@gmail.com",
   "repository": {
     "type": "git",
