@@ -63,7 +63,7 @@ public class WMS extends CordovaPlugin {
         if (action.equals("coolMethod")) {
  //           String message = args.getString(0);
 //            this.coolMethod(message, callbackContext);
-          Toast.makeText(cordova.getActivity(), callbackContext.toString(), Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(cordova.getActivity(), callbackContext.toString(), Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
