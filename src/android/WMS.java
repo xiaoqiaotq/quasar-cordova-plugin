@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ public class WMS extends CordovaPlugin {
   public static final String BARCODE_TYPE_TAG = "barcodeType";
   public static final String BARCODE_LENGTH_TAG = "length";
   public static final String DECODE_DATA_TAG = "barcode";
+  private Vibrator vibrator;
 
   private BroadcastReceiver mReceiver = new BroadcastReceiver() {
     @Override
@@ -57,33 +61,50 @@ public class WMS extends CordovaPlugin {
 
   private CallbackContext callbackContext;
 
-    @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-      this.callbackContext = callbackContext;
-        if (action.equals("coolMethod")) {
- //           String message = args.getString(0);
+  @Override
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    if (action.equals("coolMethod")) {
+     this.callbackContext = callbackContext;
+      //           String message = args.getString(0);
 //            this.coolMethod(message, callbackContext);
-        //  Toast.makeText(cordova.getActivity(), callbackContext.toString(), Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
+      //  Toast.makeText(cordova.getActivity(), callbackContext.toString(), Toast.LENGTH_SHORT).show();
+      return true;
+    }else if(action.equals("beep")){
+      int toneType = ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD;
+      toneType = args.getInt(0);
+      boolean needVibrate = args.getBoolean(1);
+      if (needVibrate) {
+        vibrator.vibrate(args.getInt(2));
+      }
+      ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+      toneG.startTone(toneType, 2000);
+      return true;
     }
+    return false;
+  }
 
-    private void coolMethod(String message, CallbackContext callbackContext) {
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
-        }
+  private void coolMethod(String message, CallbackContext callbackContext) {
+    if (message != null && message.length() > 0) {
+      callbackContext.success(message);
+    } else {
+      callbackContext.error("Expected one non-empty string argument.");
     }
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    vibrator = (Vibrator) cordova.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+
+  }
 
   @Override
   public void onResume(boolean multitasking) {
     super.onResume(multitasking);
 //    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, callbackContext.toString()+" cordova: "+ UUID.randomUUID().toString());
- //   pluginResult.setKeepCallback(true);
- //   callbackContext.sendPluginResult(pluginResult);
-  //  Toast.makeText(cordova.getActivity(), "你好 cordova 回来了 :"+callbackContext.toString(), Toast.LENGTH_SHORT).show();
+    //   pluginResult.setKeepCallback(true);
+    //   callbackContext.sendPluginResult(pluginResult);
+    //  Toast.makeText(cordova.getActivity(), "你好 cordova 回来了 :"+callbackContext.toString(), Toast.LENGTH_SHORT).show();
 
     // register broadcast
     IntentFilter filter = new IntentFilter();
@@ -97,5 +118,6 @@ public class WMS extends CordovaPlugin {
     cordova.getContext().unregisterReceiver(mReceiver);
 
   }
+
 }
 
