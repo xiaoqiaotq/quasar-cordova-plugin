@@ -70,14 +70,19 @@ public class WMS extends CordovaPlugin {
       //  Toast.makeText(cordova.getActivity(), callbackContext.toString(), Toast.LENGTH_SHORT).show();
       return true;
     }else if(action.equals("beep")){
-      int toneType = ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD;
-      toneType = args.getInt(0);
+//      int toneType = ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD;
+      final int toneType = args.getInt(0);
       boolean needVibrate = args.getBoolean(1);
       if (needVibrate) {
         vibrator.vibrate(args.getInt(2));
       }
-      ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-      toneG.startTone(toneType, 2000);
+      cordova.getThreadPool().submit(new Runnable() {
+        @Override
+        public void run() {
+          ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+          toneG.startTone(toneType, 2000);
+        }
+      });
       return true;
     }
     return false;
